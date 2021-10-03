@@ -1,5 +1,5 @@
 export default {
     port: 8080,
     host: "localhost",
-    dbUri: "mongo uri"
+    dbUri: "mongodb://localhost:27017"
 };
