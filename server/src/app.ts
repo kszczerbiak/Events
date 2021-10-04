@@ -12,8 +12,10 @@ const app = Express();
 app.use(Express.json());
 app.use(Express.urlencoded({extended: false}));
 
-app.listen(port, host, () => {
+let server =  app.listen(port, host, () => {
     log.info(`Server listing at http://${host}:${port}`)
     connect();
     routes(app)
 })
+
+module.exports =  server;

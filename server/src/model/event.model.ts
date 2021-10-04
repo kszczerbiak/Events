@@ -6,7 +6,6 @@ export interface EventDocument extends mongoose.Document {
     lastName: string;
     email:string;
     date:Date;
-    createdAt:Date;
 }
 
 const EventSchema = new mongoose.Schema(
