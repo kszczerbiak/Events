@@ -4,6 +4,7 @@ import log from './logger'
 import connect from './db/connect';
 import routes from './routes';
 
+
 const port = Config.get('port') as number;
 const host = Config.get('host') as string;
 
