@@ -1,0 +1,13 @@
+{
+    "name": "events",
+    "version": "1.0.0",
+    "author": "Kamil Szczerbiak",
+    "license": "MIT",
+    "scripts": {
+        "setup": "cd server && npm install && cd.. && npm install && cd.. && exit 1",
+        "server": "cd server && npm run dev",
+        "client": "cd client && npm start",
+        "server_test": "cd server && npm test",
+        "client_test": "cd client && npm test"
+    }
+}
