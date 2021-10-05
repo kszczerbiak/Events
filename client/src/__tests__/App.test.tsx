@@ -8,7 +8,9 @@ Enzyme.configure({ adapter: new Adapter() });
 describe("<App/>", () => {
   let wrapper: any;
   beforeEach(() => {
-    wrapper = mount(<App />);
+    act(() => {
+      wrapper = mount(<App />);
+    });
   });
   it("should render component", () => {
     expect(wrapper).not.toBeNull();

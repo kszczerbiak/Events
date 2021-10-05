@@ -4,7 +4,7 @@ import { EventForm } from "./components/eventForm/EventForm";
 import axios from "axios";
 import EventsList from "./components/eventsList/EventsList";
 
-export function validate(
+export async function validate(
   firstName: string,
   lastName: string,
   email: string,
