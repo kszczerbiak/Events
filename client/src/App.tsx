@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { EventForm } from "./components/eventForm/EventForm";
+import { EventForm } from "./components/EventForm/EventForm";
 import axios from "axios";
 import EventsList from "./components/eventsList/EventsList";
 
