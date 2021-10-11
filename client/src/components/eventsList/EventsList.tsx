@@ -9,16 +9,11 @@ interface Props {
 
 const EventsList = ({ events, connection }: Props) => {
   return (
-    <div>
+    <div data-testid="eventList">
       {connection ? (
         <div data-testid="orderedList" className="cardContainer">
-          {events.map((value) => {
-            return (
-              <Event
-                event={value}
-                key={Math.floor(Math.random() * (999999 - 1)) + 1}
-              />
-            );
+          {events.map((value, index) => {
+            return <Event event={value} key={index} />;
           })}
         </div>
       ) : null}

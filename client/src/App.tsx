@@ -37,20 +37,9 @@ function App() {
   const [connetction, setConnection] = useState(false);
   const [updated, setUpdated] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/api/events")
-      .then((res) => {
-        setConnection(true);
-        setShowMessage(false);
-        setEvents(res.data);
-        console.log(res.data);
-      })
-      .catch((err) => {
-        setShowMessage(true);
-        alert("Cant fetch data from api - please check connection");
-        console.log(err);
-      });
+    getData();
   }, [updated]);
 
   function postAPI(
@@ -75,41 +64,63 @@ function App() {
         console.log(err);
       });
   }
-
+  async function getData() {
+    axios
+      .get("http://localhost:8080/api/events")
+      .then((res) => {
+        setConnection(true);
+        setShowMessage(false);
+        setEvents(res.data);
+        console.log(res.data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setShowMessage(true);
+        alert("Cant fetch data from api - please check connection");
+        setIsLoading(false);
+        console.log(err);
+      });
+  }
+  function submit(
+    firstName: string,
+    lastName: string,
+    email: string,
+    date: string
+  ): void {
+    if (!validate(firstName, lastName, email, date)) {
+      alert("Invalid text in inputs");
+    } else if (
+      firstName === "" ||
+      lastName === "" ||
+      email === "" ||
+      date === ""
+    ) {
+      alert("All fields are required");
+    } else {
+      postAPI(firstName, lastName, email, date);
+    }
+  }
   return (
     <div data-testid="wraper" className="App">
-      <h1 data-testid="title">Events</h1>
-
-      <EventForm
-        connection={connetction}
-        onSubmit={function (
-          firstName: string,
-          lastName: string,
-          email: string,
-          date: string
-        ): void {
-          if (!validate(firstName, lastName, email, date)) {
-            alert("Invalid text in inputs");
-          } else if (
-            firstName === "" ||
-            lastName === "" ||
-            email === "" ||
-            date === ""
-          ) {
-            alert("All fields are required");
-          } else {
-            postAPI(firstName, lastName, email, date);
-          }
-        }}
-      />
-      {showMessage ? (
-        <h2 className="error">Can't connect to server</h2>
+      {isLoading ? (
+        <h1 className="loading">Loading...</h1>
       ) : (
-        <EventsList
-          data-testid="test"
-          connection={connetction}
-          events={events}
-        />
+        <div className="container">
+          {" "}
+          <h1 className="title" data-testid="title">
+            Events
+          </h1>
+          <EventForm connection={connetction} onSubmit={submit} />
+          {showMessage ? (
+            <h2 className="error">Can't connect to server</h2>
+          ) : (
+            <EventsList
+              data-testid="test"
+              connection={connetction}
+              events={events}
+            />
+          )}
+        </div>
       )}
     </div>
   );

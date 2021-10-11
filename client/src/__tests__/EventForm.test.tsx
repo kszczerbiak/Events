@@ -10,7 +10,7 @@ describe("<EventForm/>", () => {
     const date = "2021-10-04";
     const connection = true;
     const onSubmit = jest.fn();
-    const { getByPlaceholderText, getByText } = render(
+    const { getByPlaceholderText, getByText, getByTestId } = render(
       <EventForm connection={connection} onSubmit={onSubmit} />
     );
 
@@ -26,11 +26,6 @@ describe("<EventForm/>", () => {
     fireEvent.change(emailInput, { target: { value: email } });
     fireEvent.change(dateInput, { target: { value: date } });
     fireEvent.click(button);
-    expect(firstNameInput).toBeDisabled;
-    expect(lastNameInput).toBeDisabled;
-    expect(emailInput).toBeDisabled;
-    expect(dateInput).toBeDisabled;
-    expect(button).toBeDisabled;
 
     expect(onSubmit).toBeCalledTimes(1);
     expect(onSubmit).toBeCalledWith(firstName, lastName, email, date);
